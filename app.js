@@ -1,28 +1,47 @@
 const canvas=document.getElementById("jsCanvas")
 const ctx=canvas.getContext("2d");
 const colors=document.getElementsByClassName("jsColor");
+const currentColor=document.getElementById("curcol");
+
 const range=document.getElementById("jsRange");
-const mode=document.getElementById("jsMode");
+const genColor=document.getElementById("generate");
+
+const fill=document.getElementById("jsFill");
+const thick=document.getElementById("thickrange");
+const saveBtn=document.getElementById("jsSave");
 
 const INTIAL_COLOR="#2c2c2c";
+const INITIAL_BACKCOLOR="#ffffff";
 const CANVAS_SIZE=700;
 
 canvas.width=CANVAS_SIZE;
 canvas.height=CANVAS_SIZE;
 
+ctx.fillStyle="white";
+ctx.fillRect(0,0,CANVAS_SIZE,CANVAS_SIZE); 
 ctx.strokeStyle=INTIAL_COLOR;
 ctx.fillStyle=INTIAL_COLOR;
 ctx.lineWidth=2.5;
 
-
 let painting=false;
 let filling=false;
+let draw=true;
+
+if( document.getElementsByName("endline")[0].checked == true ){
+    console.log("square");}
+else{
+    console.log("round");
+}
 
 function stopPaninting(){
     painting=false;
 }
 
-function startPainting(){
+function startPainting(event){
+    if( document.getElementsByName("endline")[1].checked == true ){
+        ctx.beginPath();
+        ctx.arc(event.offsetX, event.offsetY, ctx.lineWidth/2, 0, 2 * Math.PI);
+        ctx.fill();}
     painting=true;
 }
 
@@ -33,8 +52,16 @@ function onMouseMove(event){
         ctx.beginPath();
         ctx.moveTo(x,y);
     }else{
-        ctx.lineTo(x,y);
-        ctx.stroke();
+        if( document.getElementsByName("endline")[1].checked == true ){
+            ctx.beginPath();
+            ctx.arc(event.offsetX, event.offsetY, ctx.lineWidth/2, 0, 2 * Math.PI);
+            ctx.fill();}
+            else
+            {
+                ctx.lineTo(x,y);
+                ctx.stroke();
+            }
+
     }
 }
 
@@ -42,48 +69,74 @@ function handColorClick(event){
     const color=event.target.style.backgroundColor;
     ctx.strokeStyle=color;
     ctx.fillStyle=color;
+    currentColor.style.background=color;
 }
 
 function handleRangeChange(event){
     const size=event.target.value;
     ctx.lineWidth=size;
+    thick.innerText=size;
 }
 
-function handleModeClick(){
-    if(filling==true)
-    {
-        filling=false;
-        mode.innerText="Fill";
-    }else{
-        filling=true;
-        mode.innerText="Paint";
-        ctx.fillStyle=ctx.strokeStyle;
-    }
+function FillCanvas(){
+        ctx.fillRect(0,0,CANVAS_SIZE,CANVAS_SIZE); 
 }
 
-function handleCanvasClick(){
-    if(filling)
-    {
-        ctx.fillRect(0,0,CANVAS_SIZE,CANVAS_SIZE);
-    }   
+function myColor()
+{
+    console.log("myColor called");
+    var red=document.getElementById('red').value;
+    var green=document.getElementById('green').value;
+    var blue=document.getElementById('blue').value;
+    var color='rgb('+red+','+green+','+blue+')';
+    genColor.style.background=color;
+    document.getElementById('generate').innerText='Set ' +color+' as current color';   
 }
+
+function handleCM(event){
+    event.preventDefault();
+}
+
+function handleSaveClick(){
+    const image=canvas.toDataURL();
+    const link=document.createElement("a");
+    link.href=image;
+    link.download="PaintJS[EXPORT]";
+    link.click();
+}
+
+document.getElementById('red').addEventListener('input',myColor);
+document.getElementById('green').addEventListener('input',myColor);
+document.getElementById('blue').addEventListener('input',myColor);
+
 
 if(canvas){
     canvas.addEventListener("mousemove",onMouseMove);
     canvas.addEventListener("mousedown",startPainting);
     canvas.addEventListener("mouseup",stopPaninting);
     canvas.addEventListener("mouseleave",stopPaninting);
-    canvas.addEventListener("click",handleCanvasClick);
+    canvas.addEventListener("contextmenu",handleCM);
 }
 
 Array.from(colors).forEach(color=>
     color.addEventListener("click",handColorClick)
     );
 
+
+
 if(range){
     range.addEventListener("input",handleRangeChange);
 }
 
-if(mode){
-    mode.addEventListener("click",handleModeClick);
+if(fill){
+    fill.addEventListener("click",FillCanvas);
 }
+
+if(genColor){
+    genColor.addEventListener("click",handColorClick)
+}
+
+if(saveBtn){
+    saveBtn.addEventListener("click",handleSaveClick);
+}
+
