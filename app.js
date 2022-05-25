@@ -142,23 +142,16 @@ if(saveBtn){
     saveBtn.addEventListener("click",handleSaveClick);
 }
 
-
 load.addEventListener("change",function(){
-  let uploaded_image;
-  const reader=new FileReader();
-  var image = new Image();
-
-    reader.addEventListener("load",()=>{
-        uploaded_image=reader.result;
-        //document.getElementById("jsCanvas").style.backgroundImage=`url(${uploaded_image})`;
-        
-        image.src=uploaded_image;
-      //  console.log("image.src: " + image.src);
-     //   ctx.clearRect(0,0,CANVAS_SIZE,CANVAS_SIZE); 
-        ctx.drawImage(image, 0, 0);
-    });
-    reader.readAsDataURL(this.files[0]);
-
-})
+    var reader = new FileReader();
+      reader.onload = function(e){
+          var img = new Image();
+          img.onload = function(){
+              ctx.drawImage(img,0,0,CANVAS_SIZE,CANVAS_SIZE);
+          }
+          img.src = e.target.result;
+      }
+      reader.readAsDataURL(this.files[0]);
+  })
 
 
