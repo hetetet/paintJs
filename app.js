@@ -7,6 +7,7 @@ const range=document.getElementById("jsRange");
 const genColor=document.getElementById("generate");
 
 const fill=document.getElementById("jsFill");
+const load=document.getElementById("jsLoad");
 const thick=document.getElementById("thickrange");
 const saveBtn=document.getElementById("jsSave");
 
@@ -25,7 +26,8 @@ ctx.lineWidth=2.5;
 
 let painting=false;
 let filling=false;
-let draw=true;
+let draw=true;let uploaded_image="";
+
 
 if( document.getElementsByName("endline")[0].checked == true ){
     console.log("square");}
@@ -51,8 +53,10 @@ function onMouseMove(event){
     if(!painting){
         ctx.beginPath();
         ctx.moveTo(x,y);
-    }else{
-        if( document.getElementsByName("endline")[1].checked == true ){
+    }
+    else{
+        if( document.getElementsByName("endline")[1].checked == true )
+        {
             ctx.beginPath();
             ctx.arc(event.offsetX, event.offsetY, ctx.lineWidth/2, 0, 2 * Math.PI);
             ctx.fill();}
@@ -61,8 +65,7 @@ function onMouseMove(event){
                 ctx.lineTo(x,y);
                 ctx.stroke();
             }
-
-    }
+        }
 }
 
 function handColorClick(event){    
@@ -84,7 +87,6 @@ function FillCanvas(){
 
 function myColor()
 {
-    console.log("myColor called");
     var red=document.getElementById('red').value;
     var green=document.getElementById('green').value;
     var blue=document.getElementById('blue').value;
@@ -139,4 +141,24 @@ if(genColor){
 if(saveBtn){
     saveBtn.addEventListener("click",handleSaveClick);
 }
+
+
+load.addEventListener("change",function(){
+  let uploaded_image;
+  const reader=new FileReader();
+  var image = new Image();
+
+    reader.addEventListener("load",()=>{
+        uploaded_image=reader.result;
+        //document.getElementById("jsCanvas").style.backgroundImage=`url(${uploaded_image})`;
+        
+        image.src=uploaded_image;
+      //  console.log("image.src: " + image.src);
+     //   ctx.clearRect(0,0,CANVAS_SIZE,CANVAS_SIZE); 
+        ctx.drawImage(image, 0, 0);
+    });
+    reader.readAsDataURL(this.files[0]);
+
+})
+
 

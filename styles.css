@@ -35,11 +35,11 @@ body{
     width:500px;
     margin-bottom: 20px;
 }
-.controls__btns button{
+.controls__btns button, .button{
     all:unset;
     cursor: pointer;
     background-color:white;
-    margin:0 10px;
+    margin:0 5px;
     padding: 5px 20px;
     text-align: center;
     border-radius: 5px;
@@ -50,7 +50,7 @@ body{
 
 }
 
-.controls__btns button:active{
+.controls__btnsbutton:active{
     transform: scale(0.98);
 }
 
