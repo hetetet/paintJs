@@ -29,7 +29,7 @@ let filling=false;
 let draw=true;let uploaded_image="";
 
 
-if( document.getElementsByName("endline")[0].checked == true ){
+if( document.getElementsByName("lineStyle")[0].checked == true ){
     console.log("square");}
 else{
     console.log("round");
@@ -40,7 +40,7 @@ function stopPaninting(){
 }
 
 function startPainting(event){
-    if( document.getElementsByName("endline")[1].checked == true ){
+    if( document.getElementsByName("lineStyle")[1].checked == true ){
         ctx.beginPath();
         ctx.arc(event.offsetX, event.offsetY, ctx.lineWidth/2, 0, 2 * Math.PI);
         ctx.fill();}
@@ -55,7 +55,7 @@ function onMouseMove(event){
         ctx.moveTo(x,y);
     }
     else{
-        if( document.getElementsByName("endline")[1].checked == true )
+        if( document.getElementsByName("lineStyle")[1].checked == true )
         {
             ctx.beginPath();
             ctx.arc(event.offsetX, event.offsetY, ctx.lineWidth/2, 0, 2 * Math.PI);
