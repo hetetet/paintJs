@@ -24,7 +24,7 @@ ctx.strokeStyle=INTIAL_COLOR;
 ctx.fillStyle=INTIAL_COLOR;
 ctx.lineWidth=2.5;
 
-let painting=false;
+let painting=fa;
 let filling=false;
 let draw=true;let uploaded_image="";
 
