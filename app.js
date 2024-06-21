@@ -107,6 +107,12 @@ function handleSaveClick(){
     link.click();
 }
 
+function subtraction(a,b){
+    return a-b;
+}
+
+module.exports=substraction;
+
 document.getElementById('red').addEventListener('input',myColor);
 document.getElementById('green').addEventListener('input',myColor);
 document.getElementById('blue').addEventListener('input',myColor);
