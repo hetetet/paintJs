@@ -1,8 +1,11 @@
 {
-    "name":"alm_study",
-    "version":"0.1.0",
-    "private":"true",
-    "scripts":{
-        "test":"^29.2.0"
+    "name": "alm_study",
+    "version": "0.1.0",
+    "private": "true",
+    "scripts": {
+        "test": "jest --verbose --coverage"
+    },
+    "devDependencies": {
+        "jest": "^29.7.0"
     }
 }

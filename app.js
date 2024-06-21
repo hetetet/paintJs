@@ -28,7 +28,7 @@ let painting=false;
 let filling=false;
 let draw=true;let uploaded_image="";
 
-
+t
 if( document.getElementsByName("lineStyle")[0].checked == true ){
     console.log("square");}
 else{
@@ -107,11 +107,6 @@ function handleSaveClick(){
     link.click();
 }
 
-function subtraction(a,b){
-    return a-b;
-}
-
-module.exports=substraction;
 
 document.getElementById('red').addEventListener('input',myColor);
 document.getElementById('green').addEventListener('input',myColor);
@@ -160,4 +155,8 @@ load.addEventListener("change",function(){
       reader.readAsDataURL(this.files[0]);
   })
 
+function subtraction(a,b){
+   return a-b;
+}
 
+module.exports = app;
